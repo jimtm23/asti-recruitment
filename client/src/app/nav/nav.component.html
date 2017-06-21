@@ -1,0 +1,491 @@
+<!-- <nav class="navbar navbar-full navbar-dark" style="background-color: #4D8618;">
+  <button class="navbar-toggler hidden-md-up float-xs-right" type="button" (click)="navExpanded = !navExpanded" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
+    &#9776;
+  </button>
+  <a class="navbar-brand" href="/#">
+    <i class="fa grails-icon">
+    </i> Grails
+  </a>
+  <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2" [ngbCollapse]="!navExpanded">
+    <ul class="nav navbar-nav float-sm-right">
+      <li class="nav-item" ngbDropdown>
+        <a href="#" class="dropdown-toggle nav-link" ngbDropdownToggle role="button" aria-haspopup="true" aria-expanded="false">Application Status <span class="caret"></span></a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Environment: {{applicationData?.environment}}</a>
+          <a class="dropdown-item" href="#">App profile: {{applicationData?.appprofile}}</a>
+          <a class="dropdown-item" href="#">App version: {{applicationData?.appversion}}</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Grails version: {{applicationData?.grailsversion}}</a>
+          <a class="dropdown-item" href="#">Groovy version: {{applicationData?.groovyversion}}</a>
+          <a class="dropdown-item" href="#">JVM version: {{applicationData?.jvmversion}}</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Reloading active: {{applicationData?.reloadingagentenabled}}</a>
+        </div>
+      </li>
+      <li class="nav-item" ngbDropdown>
+        <a href="#" class="dropdown-toggle nav-link" ngbDropdownToggle role="button" aria-haspopup="true" aria-expanded="false">Artefacts <span class="caret"></span></a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Controllers: {{applicationData?.artefacts?.controllers}}</a>
+          <a class="dropdown-item" href="#">Domains: {{applicationData?.artefacts?.domains}}</a>
+          <a class="dropdown-item" href="#">Services: {{applicationData?.artefacts?.services}}</a>
+        </div>
+      </li>
+      <li class="nav-item" ngbDropdown>
+        <a href="#" class="dropdown-toggle nav-link" ngbDropdownToggle role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="#" *ngFor="let plugin of applicationData?.plugins">{{plugin.name}} - {{plugin.version}}</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav> -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="javascript:;">
+                 <img src="http://froiden.cloudapp.net/hrm_demo/assets/admin/layout/img/logo.png" class="logo-default" height="22px" width="86px" alt="Logo">
+
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+
+        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                          <i class="icon-bell"></i>
+
+                                              <span class="badge badge-default">
+                      11
+                    </span>
+                  
+                          </a>
+
+
+                          <ul class="dropdown-menu">
+                            <li class="external">
+                              <h3><span class="bold">11 pending</span> notifications</h3>
+
+                            </li>
+                                                        <li>
+                              <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1300);return false;">
+                                  <span class="time">22-May-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 31-May-2017</span>
+                                  </a>
+                                </li>
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1335);return false;">
+                                  <span class="time">23-May-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 24-May-2017</span>
+                                  </a>
+                                </li>
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1336);return false;">
+                                  <span class="time">23-May-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 24-May-2017</span>
+                                  </a>
+                                </li>
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1337);return false;">
+                                  <span class="time">23-May-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 27-May-2017</span>
+                                  </a>
+                                </li>
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1374);return false;">
+                                  <span class="time">24-May-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 31-May-2017</span>
+                                  </a>
+                                </li>
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1583);return false;">
+                                  <span class="time">03-Jun-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 08-Jun-2017</span>
+                                  </a>
+                                </li>
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1661);return false;">
+                                  <span class="time">08-Jun-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 23-Jun-2017</span>
+                                  </a>
+                                </li>
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1778);return false;">
+                                  <span class="time">11-Jun-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 12-Jun-2017</span>
+                                  </a>
+                                </li>
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1781);return false;">
+                                  <span class="time">13-Jun-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 13-Jun-2017</span>
+                                  </a>
+                                </li>
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1863);return false;">
+                                  <span class="time">20-Jun-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 30-Jun-2017</span>
+                                  </a>
+                                </li>
+                                                                <li>
+                                  <a  data-toggle="modal" href="#static_leave_requests" onclick="show_application_notification(1864);return false;">
+                                  <span class="time">20-Jun-2017</span>
+                                  <span class="details">
+                                  <span class="label label-sm label-icon label-success">
+                                  <i class="fa fa-bell-o"></i>
+                                  </span>
+                                   <strong>Antonio Lima </strong> has applied for leave on 07-Jul-2017</span>
+                                  </a>
+                                </li>
+                                
+                              </ul>
+                            </li>
+                                                      </ul>
+                        </li>
+
+                <li class="dropdown dropdown-user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img src="http://froiden.cloudapp.net/hrm_demo/assets/admin/layout/img/avatar3_small.jpg" class="img-circle" alt="small image">
+
+                    <span class="username username-hide-on-mobile">
+                  Ajay Kumar Choudhary</span>
+                    <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="http://froiden.cloudapp.net/hrm_demo/admin/profile_settings/1/edit">
+                            <i class="icon-user"></i> My Profile </a>
+                        </li>
+
+                        <li class="divider">
+                        </li>
+                        <li>
+                            <a href="http://froiden.cloudapp.net/hrm_demo/screenlock ">
+                            <i class="icon-lock"></i> Lock Screen </a>
+                        </li>
+                        <li>
+                            <a href="http://froiden.cloudapp.net/hrm_demo/admin/logout ">
+                             <i class="icon-logout"></i> Log Out </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+
+
+
+<form method="POST" action="http://froiden.cloudapp.net/hrm_demo" accept-charset="UTF-8" id="edit_form_leave">
+  <input name="_method" type="hidden" value="PATCH"><input name="_token" type="hidden" value="kTOtHlzMbNI2Vzt5aNPn0TAfG1dyUWzb8EUPL6w8">
+<div id="static_leave_requests" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <span class="caption-subject font-red-sunglo bold uppercase">Leave Application</span>
+      </div>
+      <div class="modal-body" id="modal-data-leave"></div>
+    </div>
+  </div>
+</div>
+</form>
+
+<script>
+function show_application_notification(id)
+       {
+          $("#modal-data-leave").html('<div class="text-center"><img src="http://froiden.cloudapp.net/hrm_demo/assets/admin/layout/img/loading-spinner-blue.gif"></div>');
+            $('#edit_form_leave').attr('action',"http://froiden.cloudapp.net/hrm_demo/admin/leave_applications/"+id+"" );
+            $.ajax({
+                    type: "GET",
+                    url : "http://froiden.cloudapp.net/hrm_demo/admin/leave_applications/"+id+""
+
+                    }).done(function(response)
+                    {
+                                $('#modal-data-leave').html(response);
+//
+                     });
+       }
+</script>
+
+<div class="clearfix"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+
+         <!-- BEGIN SIDEBAR -->
+  <div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+      <!-- BEGIN SIDEBAR MENU -->
+      <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+      <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+      <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+      <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+      <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+      <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+      <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+        <li class="sidebar-toggler-wrapper">
+          <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+          <div class="sidebar-toggler"></div>
+          <!-- END SIDEBAR TOGGLER BUTTON -->
+        </li>
+
+
+        <li class="start active">
+          <a href="http://froiden.cloudapp.net/hrm_demo/admin">
+          <i class="fa fa-home"></i>
+          <span class="title">Dashboard</span>
+          <span class="selected"></span>
+          </a>
+        </li>
+           
+
+        <li class="">
+          <a href="javascript:;">
+            <i class="fa fa-users"></i>
+            <span class="title">Employees</span>
+            <span class="arrow "></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="">
+              <a href="http://froiden.cloudapp.net/hrm_demo/admin/employees">
+              <i class="fa fa-users"></i>
+              Employees List</a>
+            </li>
+
+            
+          </ul>
+        </li>
+              
+
+        <li class="">
+          <a href="javascript:;">
+            <i class="fa fa-briefcase"></i>
+            <span class="title">Department</span>
+            <span class="arrow "></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="">
+              <a href="http://froiden.cloudapp.net/hrm_demo/admin/departments">
+              <i class="fa fa-briefcase"></i>
+              Department List </a>
+            </li>
+          </ul>
+        </li>
+              
+        <li class="">
+          <a href="javascript:;">
+            <i class="fa fa-trophy"></i>
+            <span class="title">Award</span>
+            <span class="arrow "></span>
+          </a>
+          <ul class="sub-menu">
+              <li class="">
+                  <a href="http://froiden.cloudapp.net/hrm_demo/admin/awards">
+                  <i class="fa  fa-gift"></i>
+                  Award List</a>
+              </li>
+          </ul>
+        </li>
+            
+
+
+        <li class="">
+          <a href="javascript:;">
+            <i class="fa fa-money"></i>
+            <span class="title">Expense</span>
+            <span class="arrow "></span>
+          </a>
+          <ul class="sub-menu">
+              <li class="">
+                  <a href="http://froiden.cloudapp.net/hrm_demo/admin/expenses">
+                  <i class="fa  fa-money"></i>
+                  Expense List</a>
+              </li>
+
+
+          </ul>
+        </li>
+              
+
+        <li class="">
+          <a href="javascript:;">
+            <i class="fa fa-send"></i>
+            <span class="title">Holidays</span>
+            <span class="arrow "></span>
+          </a>
+          <ul class="sub-menu">
+              <li class="">
+                  <a href="http://froiden.cloudapp.net/hrm_demo/admin/holidays">
+                  <i class="fa  fa-calendar"></i>
+                  Holiday List</a>
+              </li>
+          </ul>
+        </li>
+              
+
+        <li class="">
+          <a href="javascript:;">
+          <i class="fa fa-user"></i>
+          <span class="title">Attendance</span>
+          <span class="arrow "></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="">
+                <a href="http://froiden.cloudapp.net/hrm_demo/admin/attendances/create">
+                <i class="fa  fa-check"></i>
+                Mark Attendance</a>
+            </li>
+            <li class="">
+              <a href="http://froiden.cloudapp.net/hrm_demo/admin/attendances">
+              <i class="fa  fa-eye"></i>
+              View Attendance</a>
+            </li>
+            <li class="">
+              <a href="http://froiden.cloudapp.net/hrm_demo/admin/leavetypes">
+              <i class="fa fa-sitemap"></i>
+              Leave Types</a>
+            </li>
+          </ul>
+        </li>
+
+                  
+        <li class="">
+          <a href="javascript:;">
+            <i class="fa fa-rocket"></i>
+            <span class="title">Leave Applications</span>
+            <span class="arrow "></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="">
+                <a href="http://froiden.cloudapp.net/hrm_demo/admin/leave_applications">
+                <i class="fa fa-rocket"></i>
+                Application List</a>
+            </li>
+          </ul>
+        </li>
+
+                  
+
+        <li class="">
+          <a href="javascript:;">
+            <i class="fa fa-clipboard"></i>
+            <span class="title">Notice Board</span>
+            <span class="arrow "></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="">
+                <a href="http://froiden.cloudapp.net/hrm_demo/admin/noticeboards">
+                <i class="fa fa-clipboard"></i>
+                Notice Board</a>
+            </li>
+          </ul>
+        </li>
+
+                
+
+        <li class="">
+          <a href="javascript:;">
+          <i class="fa fa-cogs"></i>
+          <span class="title">Settings</span>
+          <span class="arrow "></span>
+          </a>
+          <ul class="sub-menu">
+              <li class="">
+                  <a href="http://froiden.cloudapp.net/hrm_demo/admin/settings/setting/edit">
+                  <i class="fa  fa-cog"></i>
+                General Setting</a>
+              </li>
+              <li class="">
+                    <a href="http://froiden.cloudapp.net/hrm_demo/admin/profile_settings/1/edit">
+                    <i class="fa fa-user"></i>
+                    Profile Setting</a>
+              </li>
+              <li class="">
+                  <a href="http://froiden.cloudapp.net/hrm_demo/admin/notificationSettings/1/edit">
+                  <i class="fa fa-bell"></i>
+                  Notification Setting</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="start" style="background-color:black">
+          <a href="http://www.snaphrm.com" target="_blank">
+          <i class="fa fa-send"></i><span class="badge badge-danger badge-roundless">new</span>
+          <span class="title" style="color:white">Pro Version </span>
+          <span class="selected"></span>
+          </a>
+        </li>
+           
+
+        <li class="start" style="background-color:black">
+          <a href="http://www.snaphrm.com/multi-company.php" target="_blank">
+            <i class="fa fa-send"></i><span class="badge badge-danger badge-roundless">new</span>
+            <span class="title" style="color:white">Multi-Company</span>
+            <span class="selected"></span>
+          </a>
+        </li>
+      </ul>
+      <!-- END SIDEBAR MENU -->
+    </div>
+  </div>
+  <!-- END SIDEBAR -->
+  </div>

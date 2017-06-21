@@ -1,0 +1,2530 @@
+<!doctype html>
+<html>
+<head>
+  <base href="/" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>AstiRecruitment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/simple-line-icons.min.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/uniform.default.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/bootstrap-switch.min.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/bootstrap-switch.min.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/select2.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/multi-select.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/fullcalendar.min.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/components.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/plugins.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/layout.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/darkblue.css">
+  <link media="all" type="text/css" rel="stylesheet" href="../../assets/css/custom.css">
+</head>
+<body class="page-header-fixed page-quick-sidebar-over-content page-style-square">
+  <app>
+    Loading...
+  </app>
+
+  <div class="footer" role="contentinfo"></div>
+  <script src="../../assets/js/jquery.min.js"></script>
+  <script src="../../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+  <script src="../../assets/js/bootstrap.min.js"></script>
+  <script src="../../assets/js/bootstrap-hover-dropdown.min.js"></script>
+  <script src="../../assets/js/jquery.slimscroll.min.js"></script>
+  <script src="../../assets/js/metronic.js"></script>
+  <script src="../../assets/js/layout.js"></script>
+  <script>
+jQuery(document).ready(function() {
+   Metronic.init(); // init metronic core componets
+   Layout.init(); // init layout
+    $('.demo-loading-btn')
+                       .click(function () {
+                         var btn = $(this)
+                         btn.button('loading')
+                         setTimeout(function () {
+                           btn.button('reset')
+                         }, 8000)
+                     });
+    $('.demo-loading-btn-ajax')
+                           .click(function () {
+                             var btn = $(this)
+                             btn.button('loading')
+                             setTimeout(function () {
+                               btn.button('reset')
+                             }, 500)
+                         });
+
+
+});
+
+     function ToggleEmailNotification(type){
+       if ($('[name='+type+']').is(':checked')){
+        var value = 1;
+       }
+       else {
+        var value = 0;
+       }
+       $('#load_notification').html('<img src="http://froiden.cloudapp.net/hrm_demo/assets/admin/layout/img/loading-spinner-blue.gif">');
+
+
+       $.ajax({
+         type: 'POST',
+         url: "http://froiden.cloudapp.net/hrm_demo/admin/ajax_update_notification",
+         dataType: "JSON",
+         data: {'value':value,'id':'1','type':type
+         },
+         success: function(response) {
+          if(response.success=='success'){
+            $('#load_notification').html('');
+          }
+         },
+         error: function(xhr, textStatus, thrownError) {
+          alert('Data Fetching error');
+         }
+       });
+
+     }
+</script>
+
+
+
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="./assets/js/bootstrap-switch.min.js"></script>
+
+        <script src="./assets/js/bootstrap-select.min.js"></script>
+
+        <script src="./assets/js/select2.min.js"></script>
+
+
+        <script src="./assets/js/jquery.multi-select.js"></script>
+
+        <script src="./assets/js/components-dropdowns.js"></script>
+
+
+
+    <script src="./assets/js/ui-blockui.js"></script>
+
+        <script src="./assets/js/moment.min.js"></script>
+
+        <script src="./assets/js/fullcalendar.min.js"></script>
+
+    <script src="./assets/js/highcharts.js"></script>
+    <script src="./assets/js/exporting.js"></script>
+
+
+
+<script>
+jQuery(document).ready(function() {
+
+   Calendar.init();
+//   showReport();
+   UIBlockUI.init();
+   ComponentsDropdowns.init();
+
+});
+
+
+var Calendar = function() {
+
+
+    return {
+        //main function to initiate the module
+        init: function() {
+            Calendar.initCalendar();
+
+
+        },
+
+        initCalendar: function() {
+
+            if (!jQuery().fullCalendar) {
+                return;
+            }
+
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            var h = {};
+
+
+                if ($('#calendar').parents(".portlet").width() <= 720) {
+                                    $('#calendar').addClass("mobile");
+                                    h = {
+                                        left: 'title, prev, next',
+                                        center: '',
+                                        right: 'today,month'
+                                    };
+                                } else {
+                                    $('#calendar').removeClass("mobile");
+                                    h = {
+                                        left: 'title',
+                                        center: '',
+                                        right: 'prev,next,today'
+                                    };
+                                }
+
+            $('#calendar').fullCalendar('destroy'); // destroy the calendar
+            $('#calendar').fullCalendar({ //re-initialize the calendar
+               header: h,
+         defaultView: 'month',
+            eventRender: function(event, element) {
+                          if(event.className=="holiday"){
+                            var dataToFind = moment(event.start).format('YYYY-MM-DD');
+                                            $('.fc-day[data-date="'+dataToFind+'"]').css('background', 'rgba(255, 224, 205, 1)');
+                                           }
+                      },
+                events: [
+                                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-01-03',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-01-10',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-01-17',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-01-24',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-01-31',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-02-07',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-02-14',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-02-21',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-02-28',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-03-06',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-03-13',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-03-20',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-03-27',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-04-03',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-04-10',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-04-17',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-04-24',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-05-01',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-05-08',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-05-15',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-05-22',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-05-29',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-06-05',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-06-12',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-06-19',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-06-26',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-07-03',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-07-10',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-07-17',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-07-24',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-07-31',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-08-07',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-08-14',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-08-21',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-08-28',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-09-04',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-09-11',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-09-18',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-09-25',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-10-02',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-10-09',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-10-16',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-10-23',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-10-30',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-11-06',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-11-13',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-11-20',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-11-27',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-12-04',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-12-11',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-12-18',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Sunday",
+             start:'2016-12-25',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Someday",
+             start:'2016-01-19',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Pongal",
+             start:'2016-01-15',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-03-05',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "ygj",
+             start:'2017-03-09',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "ooo",
+             start:'2017-03-23',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "oo",
+             start:'2017-03-01',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "sasikumar",
+             start:'2017-03-17',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "sasi",
+             start:'2017-03-08',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-02-27',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-03-07',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "nnnn",
+             start:'2017-03-31',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "ssss",
+             start:'2017-04-11',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-04-14',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-03-20',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "test",
+             start:'2017-03-15',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-04-12',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "do",
+             start:'2017-04-04',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "sdsd",
+             start:'2017-04-26',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "sdsd",
+             start:'2017-04-10',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "sick",
+             start:'2017-04-05',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "dasdasds",
+             start:'2016-02-01',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: " cms",
+             start:'2017-03-28',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Hello",
+             start:'2017-04-24',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-04-20',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Labour Day",
+             start:'2017-05-01',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Independent Day",
+             start:'2017-09-02',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "rr3323r2",
+             start:'2017-05-08',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "Shadi",
+             start:'2017-05-10',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "emni",
+             start:'2017-05-15',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "asd",
+             start:'1970-01-01',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "a",
+             start:'2017-05-18',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "b",
+             start:'2017-05-17',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-05-02',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "cccc",
+             start:'2017-05-03',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-05-26',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-05-27',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-05-31',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "ll",
+             start:'2017-05-09',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-08-15',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-06-14',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "holi",
+             start:'2017-06-12',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "something",
+             start:'2017-06-06',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "sex",
+             start:'2017-06-21',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "HHH",
+             start:'2017-06-15',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-06-30',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-06-07',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "",
+             start:'2017-06-01',
+
+             color: 'grey'
+
+           },
+
+                     {
+               className:"holiday",
+             title: "planing",
+             start:'2017-07-31',
+
+             color: 'grey'
+
+           },
+
+                                                  
+                            {
+                title: 'all present',
+                start:'2017-03-06'
+
+              },
+                            
+                        
+                                               {
+                  title: "Charity",
+                  start:'2017-03-07',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-11',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-25',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-25',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-08',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-08',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-10',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-10',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                            {
+                title: 'all present',
+                start:'2017-03-09'
+
+              },
+                            
+                        
+                            {
+                title: 'all present',
+                start:'2017-03-13'
+
+              },
+                            
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-14',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Hj",
+                  start:'2017-03-15',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Adnan",
+                  start:'2017-03-15',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Zackery",
+                  start:'2017-03-15',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-17',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-17',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-17',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-17',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-17',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Cara",
+                  start:'2017-03-16',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-22',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-18',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-18',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-18',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-27',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-03-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Adnan",
+                  start:'2017-03-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Ethyl",
+                  start:'2017-03-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Tyshawn",
+                  start:'2017-03-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Jairo",
+                  start:'2017-03-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Eino",
+                  start:'2017-03-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Cleora",
+                  start:'2017-03-21',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-29',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-29',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-03-29',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-24',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-24',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-24',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-23',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-23',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-23',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-23',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Adnan",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Ethyl",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Tyshawn",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Jairo",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Mariela",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Jerin",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Bp",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'0000-00-00',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-14',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-30',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-30',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                            {
+                title: 'all present',
+                start:'2017-03-28'
+
+              },
+                            
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-03-31',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-03-31',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-11',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-11',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-06',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-13',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-03',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-04-03',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-20',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-20',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-04-20',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                            {
+                title: 'all present',
+                start:'2017-04-01'
+
+              },
+                            
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-05',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-05',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "ตำรวจ",
+                  start:'2017-04-05',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "K",
+                  start:'2017-04-05',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-07',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-07',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-08',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Pei",
+                  start:'2017-04-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Dylan",
+                  start:'2017-04-21',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Hj",
+                  start:'2017-04-09',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Adnan",
+                  start:'2017-04-09',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Ethyl",
+                  start:'2017-04-09',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-17',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-18',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Zackery",
+                  start:'2017-04-18',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-16',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-25',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-25',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Trevion",
+                  start:'2017-04-25',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-22',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-22',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-03',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-05-03',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Adnan",
+                  start:'2017-05-03',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-06',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-19',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-16',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-05-16',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Marion",
+                  start:'2017-05-16',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-28',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-28',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-23',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-04-23',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Aleen",
+                  start:'2017-04-23',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Dylan",
+                  start:'2017-04-23',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-24',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-26',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-27',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-29',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-29',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-04-30',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-30',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-04-30',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-15',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-06-15',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-11',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-05-11',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-22',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-06-22',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-06-22',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-06-22',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-01',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-06-01',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Adnan",
+                  start:'2017-05-02',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Ethyl",
+                  start:'2017-05-02',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Tyshawn",
+                  start:'2017-05-02',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-25',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-05-25',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Hj",
+                  start:'2017-05-04',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-19',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-24',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-05-24',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Adnan",
+                  start:'2017-05-24',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-26',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-05-26',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-31',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-05-31',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-17',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-05',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                            {
+                title: 'all present',
+                start:'2017-05-13'
+
+              },
+                            
+                        
+                                               {
+                  title: "Hj",
+                  start:'2017-05-09',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-12',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-15',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-05-15',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-22',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-18',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-23',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-05-23',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-05-23',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-08',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-06-08',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "ตำรวจ",
+                  start:'2017-06-08',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-20',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-21',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-05-21',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-27',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-07-01',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-06',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-28',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-05-28',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Adnan",
+                  start:'2017-05-28',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Tyshawn",
+                  start:'2017-05-28',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Jairo",
+                  start:'2017-05-28',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Vcxb",
+                  start:'2017-05-28',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Jerin",
+                  start:'2017-05-28',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Nina ",
+                  start:'2017-05-28',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Testentry",
+                  start:'2017-05-28',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-05-30',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-09',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-06-09',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-06-09',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-02',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-06-02',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Adnan",
+                  start:'2017-06-02',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Ethyl",
+                  start:'2017-06-02',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Tyshawn",
+                  start:'2017-06-02',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Jairo",
+                  start:'2017-06-02',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Cara",
+                  start:'2017-06-02',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-05',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-14',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-06-14',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Hj",
+                  start:'2017-06-11',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Adnan",
+                  start:'2017-06-11',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Ethyl",
+                  start:'2017-06-11',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Tyshawn",
+                  start:'2017-06-11',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Jairo",
+                  start:'2017-06-11',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Ethyl",
+                  start:'2017-06-13',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Tyshawn",
+                  start:'2017-06-13',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Jairo",
+                  start:'2017-06-13',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-07-07',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-16',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Antonio",
+                  start:'2017-06-16',
+                    color: '#e50000'
+
+                },
+                              
+                        
+                                               {
+                  title: "Antonio",
+                  start:'2017-06-20',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Hj",
+                  start:'2017-06-20',
+                    color: '#e50000'
+
+                },
+                                 {
+                  title: "Jairo",
+                  start:'2017-06-20',
+                    color: '#e50000'
+
+                },
+                              
+                        
+          ]
+            });
+        }
+    };
+}();
+
+$(function () {
+
+    $('#expenseChart').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Monthly Expense Report '+new Date().getFullYear()
+        },
+        xAxis: {
+            categories: [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+            useHTML: true,
+                text: 'Expense in ( <span class="fa fa-usd"></span> )'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} <span class="fa fa-usd"></span></b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [  {
+            name: 'Expense',
+//            data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8,'']
+//            data: ['','',100]
+            data: ['','',1129,'',12,1034,'','','','','','']
+
+        }]
+    });
+});
+</script>
+  
+</body>
+</html>
+

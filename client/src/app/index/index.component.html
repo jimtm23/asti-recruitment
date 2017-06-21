@@ -1,0 +1,109 @@
+<!-- <div class="svg" role="presentation">
+  <div class="grails-logo-container">
+
+  </div>
+</div>
+
+<div id="content" role="main">
+  <section class="container colset-2-its">
+    <h1 style="text-align:center;">Welcome to Grails</h1>
+
+    <p>
+      Congratulations, you have successfully started your first Grails application! At the moment
+      this is the default page, feel free to modify it to either redirect to a controller or display
+      whatever content you may choose. Below is a list of controllers that are currently deployed in
+      this application, click on each to execute its default action:
+    </p>
+
+    <div id="controllers" role="navigation">
+      <h2>Available Controllers:</h2>
+      <ul>
+        <li *ngFor="let c of controllers">
+          <div [ngSwitch]="hasRoute(c.logicalPropertyName)">
+            <a *ngSwitchCase="true" [routerLink]="'/' + c.logicalPropertyName">{{c.name}}</a>
+            <a *ngSwitchCase="false" [href]="'/' + c.logicalPropertyName">{{c.name}}</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div> -->
+
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <div class="page-content">
+            <!-- BEGIN PAGE HEADER-->
+        <h3 class="page-title">
+        Dashboard <small>reports & statistics</small>
+        </h3>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="http://froiden.cloudapp.net/hrm_demo/admin/dashboard">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+            </ul>
+       
+        </div>
+            <!-- END PAGE HEADER-->
+        <div class="row">
+          <div class="col-md-12">
+          <div class="note note-warning"><strong>Disabled!</strong> Some features are disabled for <strong>Demo version</strong></div> 
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+            <div class="note note-info"><strong>Pro Version!</strong>  For pro version visit (also in SPANISH and french) <a href="http://www.snaphrm.com">http://www.snaphrm.com</a></div>
+           
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="portlet box green-meadow calendar">
+                <div class="portlet-title">
+                  <div class="caption">
+                    <i class="fa fa-gift"></i>Attendance
+                  </div>
+                </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                        <div class="col-md-9 col-sm-12">
+                            <div id="calendar" class="has-toolbar"></div>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <p><a href="#" class="btn btn-sm red"></a> Absent</p>
+                            <p><a href="#" class="btn btn-sm blue"></a> Present</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BEGIN DASHBOARD STATS -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption">Expense Report</div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="expenseChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- END DASHBOARD STATS -->
+        </div>
+                
+
+        
+    </div>
+    <!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->

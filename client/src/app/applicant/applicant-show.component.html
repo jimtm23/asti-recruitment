@@ -1,0 +1,64 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a class="list" [routerLink]="['/applicant', 'list']" class="list">Applicant List</a></li>
+        <li><a class="create" [routerLink]="['/applicant', 'create']" class="create">New Applicant</a></li>
+    </ul>
+</div>
+<div id="show-part" class="content scaffold-show" role="main">
+    <h1>Show Applicant</h1>
+    <ol class="property-list applicant">
+  <li class="fieldcontain">
+    <span id="middleName-label" class="property-label">Middle Name</span>
+    <div class="property-value" aria-labelledby="middleName-label">
+      <span>{{applicant.middleName}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="nameExtension-label" class="property-label">Name Extension</span>
+    <div class="property-value" aria-labelledby="nameExtension-label">
+      <span>{{applicant.nameExtension}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="lastName-label" class="property-label">Last Name</span>
+    <div class="property-value" aria-labelledby="lastName-label">
+      <span>{{applicant.lastName}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="email-label" class="property-label">Email</span>
+    <div class="property-value" aria-labelledby="email-label">
+      <span>{{applicant.email}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="cellphone-label" class="property-label">Cellphone</span>
+    <div class="property-value" aria-labelledby="cellphone-label">
+      <span>{{applicant.cellphone}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="firstName-label" class="property-label">First Name</span>
+    <div class="property-value" aria-labelledby="firstName-label">
+      <span>{{applicant.firstName}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="permanentAddress-label" class="property-label">Permanent Address</span>
+    <div class="property-value" aria-labelledby="permanentAddress-label">
+      <span>{{applicant.permanentAddress}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="residentialAddress-label" class="property-label">Residential Address</span>
+    <div class="property-value" aria-labelledby="residentialAddress-label">
+      <span>{{applicant.residentialAddress}}</span>
+    </div>
+  </li>
+</ol>
+
+    <a class="edit" [routerLink]="['/applicant', 'edit', applicant.id]">Edit</a>
+    <button type="button" (click)="destroy()">Delete</button>
+
+</div>

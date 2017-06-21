@@ -1,0 +1,70 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/applicant','list']" class="list">Applicant List</a></li>
+    </ul>
+</div>
+<div id="persist-applicant" class="content scaffold-edit" role="main">
+    <h1>{{create ? "Create" : "Edit"}} Applicant</h1>
+    <ul class="errors" role="alert" *ngIf="errors">
+        <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+
+    <form name="save{className}" (ngSubmit)="save()">
+        <fieldset class="form">
+            <fieldset class="form">
+  <div class="fieldcontain required">
+    <label for="middleName">Middle Name
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="middleName" id="middleName" [(ngModel)]="applicant.middleName" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="nameExtension">Name Extension
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="nameExtension" id="nameExtension" [(ngModel)]="applicant.nameExtension" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="lastName">Last Name
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="lastName" id="lastName" [(ngModel)]="applicant.lastName" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="email">Email
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="email" id="email" [(ngModel)]="applicant.email" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="cellphone">Cellphone
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="cellphone" id="cellphone" [(ngModel)]="applicant.cellphone" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="firstName">First Name
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="firstName" id="firstName" [(ngModel)]="applicant.firstName" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="permanentAddress">Permanent Address
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="permanentAddress" id="permanentAddress" [(ngModel)]="applicant.permanentAddress" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="residentialAddress">Residential Address
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="residentialAddress" id="residentialAddress" [(ngModel)]="applicant.residentialAddress" type="text" />
+  </div>
+</fieldset>
+        </fieldset>
+        <fieldset class="buttons">
+            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+        </fieldset>
+    </form>
+</div>
