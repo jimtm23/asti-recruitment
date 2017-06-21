@@ -39,6 +39,7 @@
     </ul>
   </div>
 </nav> -->
+
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
     <div class="page-header-inner">
@@ -268,7 +269,7 @@ function show_application_notification(id)
 <div class="clearfix"></div>
 
 <!-- BEGIN CONTAINER -->
-<div class="page-container">
+<!-- <div class="page-container"> -->
 
          <!-- BEGIN SIDEBAR -->
   <div class="page-sidebar-wrapper">
@@ -290,10 +291,10 @@ function show_application_notification(id)
 
 
         <li class="start active">
-          <a href="http://froiden.cloudapp.net/hrm_demo/admin">
-          <i class="fa fa-home"></i>
-          <span class="title">Dashboard</span>
-          <span class="selected"></span>
+          <a [routerLink]="'/'">
+            <i class="fa fa-home"></i>
+            <span class="title">Dashboard</span>
+            <span class="selected"></span>
           </a>
         </li>
            
@@ -301,17 +302,22 @@ function show_application_notification(id)
         <li class="">
           <a href="javascript:;">
             <i class="fa fa-users"></i>
-            <span class="title">Employees</span>
+            <span class="title">Applicant</span>
             <span class="arrow "></span>
           </a>
           <ul class="sub-menu">
             <li class="">
-              <a href="http://froiden.cloudapp.net/hrm_demo/admin/employees">
-              <i class="fa fa-users"></i>
-              Employees List</a>
+              <a [routerLink]="['/applicant','create']" class="create">
+                <i class="fa fa-users"></i>
+                New Applicant
+              </a>
             </li>
 
-            
+            <li class="">
+              <a [routerLink]="['/applicant','list']" class="list">
+              <i class="fa fa-users"></i>
+              Applicant List</a>
+            </li>
           </ul>
         </li>
               
@@ -466,26 +472,9 @@ function show_application_notification(id)
             </li>
           </ul>
         </li>
-
-        <li class="start" style="background-color:black">
-          <a href="http://www.snaphrm.com" target="_blank">
-          <i class="fa fa-send"></i><span class="badge badge-danger badge-roundless">new</span>
-          <span class="title" style="color:white">Pro Version </span>
-          <span class="selected"></span>
-          </a>
-        </li>
-           
-
-        <li class="start" style="background-color:black">
-          <a href="http://www.snaphrm.com/multi-company.php" target="_blank">
-            <i class="fa fa-send"></i><span class="badge badge-danger badge-roundless">new</span>
-            <span class="title" style="color:white">Multi-Company</span>
-            <span class="selected"></span>
-          </a>
-        </li>
       </ul>
       <!-- END SIDEBAR MENU -->
     </div>
   </div>
   <!-- END SIDEBAR -->
-  </div>
+  <!-- </div> -->
