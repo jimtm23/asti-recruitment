@@ -1,6 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import { ReactiveFormsModule }  from '@angular/forms';
 
 import {ApplicantService} from './applicant.service';
 
@@ -19,7 +20,8 @@ import {ApplicantPersistComponent} from './applicant-persist.component';
   imports: [
     CommonModule,
     FormsModule,
-    ApplicantRoutingModule
+    ApplicantRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [
     ApplicantService

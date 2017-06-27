@@ -1,51 +1,77 @@
+<h3 class="page-title">
+  Applicant <small>List</small>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a [routerLink]="['/index']" class="home">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+           <a [routerLink]="['/applicant','create']" class="create">New Applicant</a>
+        </li>
+    </ul>
+</div>
+
 <div class="row">
-  <div id="list-applicant" class="content scaffold-list col-lg-12 col-md-12 col-sm-12 col-xs-12" role="main">
-    <div class="portlet box blue">
+  <div class="col-md-12">
+    <div class="portlet box green-meadow calendar">
       <div class="portlet-title">
         <div class="caption">
           Applicant List
         </div>
       </div>
       <div class="portlet-body">
-        <table id="sample_employees">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Middle Name</th>
-              <th>Name Extension</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Cellphone</th>
-              <th>First Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr [ngClass]="{'even': e, 'odd': !e}" *ngFor="let applicant of applicantList; let e = even;">
-              <td>
-                <a [routerLink]="['/applicant','show',applicant.id]">{{applicant.id}}</a>
-              </td>
-              <td>
-                <span>{{applicant.middleName}}</span>
-              </td>
-              <td>
-                <span>{{applicant.nameExtension}}</span>
-              </td>
-              <td>
-                <span>{{applicant.lastName}}</span>
-              </td>
-              <td>
-                <span>{{applicant.email}}</span>
-              </td>
-              <td>
-                <span>{{applicant.cellphone}}</span>
-              </td>
-              <td>
-                <span>{{applicant.firstName}}</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <div class="row" style="padding:20px">
+            <div id="list-applicant" class="content scaffold-list" role="main">
+              <table id="example" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Middle Name</th>
+                    <th>Name Extension</th>
+                    <th>Email</th>
+                    <th>Cellphone</th>
+                    <th> Action </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr [ngClass]="{'even': e, 'odd': !e}" *ngFor="let applicant of applicantList; let e = even;">
+                    <td>
+                      <a [routerLink]="['/applicant','show',applicant.id]">{{applicant.id}}</a>
+                    </td>
+                    <td>
+                      <span>{{applicant.firstName}}</span>
+                    </td>
+                    <td>
+                      <span>{{applicant.lastName}}</span>
+                    </td>
+                    <td>
+                      <span>{{applicant.middleName}}</span>
+                    </td>
+                    <td>
+                      <span>{{applicant.nameExtension}}</span>
+                    </td>
+                    <td>
+                      <span>{{applicant.email}}</span>
+                    </td>
+                    <td>
+                      <span>{{applicant.cellphone}}</span>
+                    </td>
+                    <td>
+                      <button [routerLink]="['/applicant','show',applicant.id]" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i></button>
+                      <button [routerLink]="['/applicant','edit',applicant.id]" class="btn btn-primary"><i class="fa fa-edit"></i> </button>
+                      <button (click)="destroy()" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </div>

@@ -5,7 +5,8 @@ import {ApplicantService} from './applicant.service';
 
 @Component({
   selector: 'applicant-persist',
-  templateUrl: './applicant-show.component.html'
+  templateUrl: './applicant-show.component.html',
+  styleUrls: ['./applicant-show.component.css']
 })
 export class ApplicantShowComponent implements OnInit {
 

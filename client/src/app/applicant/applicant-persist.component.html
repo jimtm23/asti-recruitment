@@ -1,70 +1,454 @@
-<div class="nav" role="navigation">
-    <ul>
-        <li><a [routerLink]="['/index']" class="home">Home</a></li>
-        <li><a [routerLink]="['/applicant','list']" class="list">Applicant List</a></li>
+<h3 class="page-title">
+  Applicant <small>Create</small>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a [routerLink]="['/index']" class="home">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a [routerLink]="['/applicant','list']" class="list">Applicant List</a>
+        </li>
     </ul>
 </div>
-<div id="persist-applicant" class="content scaffold-edit" role="main">
-    <h1>{{create ? "Create" : "Edit"}} Applicant</h1>
-    <ul class="errors" role="alert" *ngIf="errors">
-        <li *ngFor="let error of errors">{{error.message}}</li>
-    </ul>
 
-    <form name="save{className}" (ngSubmit)="save()">
-        <fieldset class="form">
-            <fieldset class="form">
-  <div class="fieldcontain required">
-    <label for="middleName">Middle Name
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="middleName" id="middleName" [(ngModel)]="applicant.middleName" type="text" />
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet box green-meadow calendar">
+      <div class="portlet-title">
+        <div class="caption">
+          Create Applicant
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="row" style="padding:20px">
+          <div id="persist-applicant" class="content scaffold-edit" role="main">
+            <ul class="errors" role="alert" *ngIf="errors">
+                <li *ngFor="let error of errors">{{error.message}}</li>
+            </ul>
+            <form name="save{className}" [formGroup]="userForm" (ngSubmit)="save()">
+                <fieldset class="form">
+                    <fieldset class="form">
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <h3> I-A. Personal Information </h3>
+                        </div>
+                      </div>
+                      <hr>
+                      <div formGroupName="name">
+                         <div class="row">
+                            <div class="fieldcontain required">
+                              <label for="lastName" class="col-sm-2 col-sm-offset-3">Last Name
+                                <span class="required-indicator">*</span>
+                              </label>
+                              <div class="col-sm-4">
+                                <input class="form-control" required="" name="lastName" id="lastName" [(ngModel)]="applicant.lastName" formControlName="lastName" type="text" maxlength="25" />
+                              </div>
+                              <div class="col-sm-3">
+                                <div *ngIf="userForm.controls['name'].controls['lastName'].hasError('required')" class="error-message">
+                                  Please enter a last name
+                                </div>
+                                <div *ngIf="userForm.controls['name'].controls['lastName'].hasError('minlength')" class="error-message">
+                                  Please enter aleast 4 characters.
+                                </div>
+                                <div *ngIf="userForm.controls['name'].controls['lastName'].hasError('maxlength')" class="error-message">
+                                  Last name must not exceed 25 characters.
+                                </div>
+                                <div *ngIf="userForm.controls['name'].controls['lastName'].hasError('pattern')" class="error-message">
+                                  Invalid format.
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="fieldcontain required">
+                              <label for="firstName" class="col-sm-2 col-sm-offset-3">First Name
+                                <span class="required-indicator">*</span>
+                              </label>
+                              <div class="col-sm-4">
+                                <input class="form-control" required="" name="firstName" id="firstName" [(ngModel)]="applicant.firstName" formControlName="firstName" type="text"  maxlength="25" />
+                              </div>
+                              <div class="col-sm-3">
+                                <div *ngIf="userForm.controls['name'].controls['firstName'].hasError('required')" class="error-message">
+                                  Please enter a first name
+                                </div>
+                                <div *ngIf="userForm.controls['name'].controls['firstName'].hasError('minlength')" class="error-message">
+                                  Please enter aleast 4 characters.
+                                </div>
+                                <div *ngIf="userForm.controls['name'].controls['firstName'].hasError('maxlength')" class="error-message">
+                                  First name must not exceed 25 characters.
+                                </div>
+                                <div *ngIf="userForm.controls['name'].controls['firstName'].hasError('pattern')" class="error-message">
+                                  Invalid format.
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                       
+                        <div class="row">
+                          <div class="fieldcontain">
+                            <label for="middleName" class="col-sm-2 col-sm-offset-3">Middle Name
+                            </label>
+                            <div class="col-sm-4">
+                              <input class="form-control" name="middleName" id="middleName" [(ngModel)]="applicant.middleName" formControlName="middleName" type="text"  maxlength="25" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['name'].controls['middleName'].hasError('minlength')" class="error-message">
+                                Please enter aleast 4 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['name'].controls['middleName'].hasError('maxlength')" class="error-message">
+                                Middle name must not exceed 25 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['name'].controls['middleName'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                          </div>
+                        </div>
+                      </div>                           
+                      <div class="row">
+                          <div class="fieldcontain">
+                            <label for="nameExtension" class="col-sm-2 col-sm-offset-3">Name Extension
+                            </label>
+                            <div class="col-sm-4">
+                              <input class="form-control" name="nameExtension" id="nameExtension" [(ngModel)]="applicant.nameExtension" formControlName="nameExtension" type="text"  maxlength="25" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['name'].controls['nameExtension'].hasError('maxlength')" class="error-message">
+                                Middle name must not exceed 25 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['name'].controls['nameExtension'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>  
+                      <br> 
+                      
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <h3>I-B. Contact Information</h3>
+                        </div>
+                      </div>
+                      <hr>
+                      <div formGroupName="contactInformation">
+                        <div class="row">
+                          <div class="fieldcontain">
+                            <label for="email" class="col-sm-2 col-sm-offset-3">Email</label>
+                            <div class="col-sm-4">
+                              <input class="form-control" name="email" id="email" [(ngModel)]="applicant.email" formControlName="email" type="text" />
+                            </div>
+                            <div class="col-sm3">
+                              <div *ngIf="userForm.controls['contactInformation'].controls['email'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain">
+                            <label for="cellphone" class="col-sm-2 col-sm-offset-3">Cellphone</label>
+                            <div class="col-sm-4">
+                              <input class="form-control" name="cellphone" id="cellphone" [(ngModel)]="applicant.cellphone" formControlName="cellphone" type="text" />
+                            </div>
+                            <div class="col-sm3">
+                              <div *ngIf="userForm.controls['contactInformation'].controls['cellphone'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain required">
+                            <label for="residentialAddress" class="col-sm-2 col-sm-offset-3"> Residential Address
+                              <span class="required-indicator">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                              <input class="form-control" required="" name="residentialAddress" id="residentialAddress" [(ngModel)]="applicant.residentialAddress" formControlName="residentialAddress" type="text"  />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['contactInformation'].controls['residentialAddress'].hasError('required')" class="error-message">
+                                  Please enter a residential address
+                                </div>
+                              <div *ngIf="userForm.controls['contactInformation'].controls['residentialAddress'].hasError('minlength')" class="error-message">
+                                Please enter aleast 4 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['contactInformation'].controls['residentialAddress'].hasError('maxlength')" class="error-message">
+                                Residential address must not exceed 100 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['contactInformation'].controls['residentialAddress'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain required">
+                            <label for="permanentAddress" class="col-sm-2 col-sm-offset-3"> Permanent Address
+                              <span class="required-indicator">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                              <input class="form-control" required="" name="permanentAddress" id="permanentAddress" [(ngModel)]="applicant.permanentAddress" formControlName="permanentAddress" type="text" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['contactInformation'].controls['permanentAddress'].hasError('required')" class="error-message">
+                                  Please enter a permanent address
+                                </div>
+                              <div *ngIf="userForm.controls['contactInformation'].controls['permanentAddress'].hasError('minlength')" class="error-message">
+                                Please enter aleast 4 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['contactInformation'].controls['permanentAddress'].hasError('maxlength')" class="error-message">
+                                Permanent address must not exceed 100 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['contactInformation'].controls['permanentAddress'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <h3>II. Educational Background</h3>
+                        </div>
+                      </div>
+                      <hr>
+                      <div formGroupName="elementaryEducation">
+                        <div class="row">
+                          <div class="fieldcontain">
+                            <label for="eNameOfSchool" class="col-sm-1 col-sm-offset-3"> 
+                              <h4> Elementary </h4>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain required">
+                            <label for="eNameOfSchool" class="col-sm-2 col-sm-offset-3"> Name Of School
+                              <span class="required-indicator">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                              <input class="form-control" required="" name="eNameOfSchool" id="eNameOfSchool" [(ngModel)]="applicant.eNameOfSchool" formControlName="eNameOfSchool" type="text" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['elementaryEducation'].controls['eNameOfSchool'].hasError('required')" class="error-message">
+                                  Please enter a name of school
+                                </div>
+                              <div *ngIf="userForm.controls['elementaryEducation'].controls['eNameOfSchool'].hasError('minlength')" class="error-message">
+                                Please enter aleast 4 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['elementaryEducation'].controls['eNameOfSchool'].hasError('maxlength')" class="error-message">
+                                Name of school must not exceed 50 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['elementaryEducation'].controls['eNameOfSchool'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain required">
+                            <label for="eYearGraduated" class="col-sm-2 col-sm-offset-3"> Year Graduated
+                              <span class="required-indicator">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                              <input class="form-control" required="" name="eYearGraduated" id="eYearGraduated" [(ngModel)]="applicant.eYearGraduated" formControlName="eYearGraduated" type="text" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['elementaryEducation'].controls['eYearGraduated'].hasError('required')" class="error-message">
+                                  Please enter a year graduated
+                                </div>
+                              <div *ngIf="userForm.controls['elementaryEducation'].controls['eYearGraduated'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain">
+                            <label for="eHonor" class="col-sm-2 col-sm-offset-3">Honor</label>
+                            <div class="col-sm-4">
+                              <input class="form-control" name="eHonor" id="eHonor" [(ngModel)]="applicant.eHonor" formControlName="eHonor" type="text" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['elementaryEducation'].controls['eHonor'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                                                       
+                      <div class="row">
+                        <div class="fieldcontain">
+                          <label for="eNameOfSchool" class="col-sm-1 col-sm-offset-3"> 
+                            <h4> Secondary </h4>
+                          </label>
+                        </div>
+                      </div>
+                      <div formGroupName="secondaryEducation">   
+                        <div class="row">
+                          <div class="fieldcontain required">
+                            <label for="sNameOfSchool" class="col-sm-2 col-sm-offset-3">Name Of School
+                              <span class="required-indicator">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                              <input class="form-control" required="" name="sNameOfSchool" id="sNameOfSchool" [(ngModel)]="applicant.sNameOfSchool" formControlName="sNameOfSchool" type="text" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['secondaryEducation'].controls['sNameOfSchool'].hasError('required')" class="error-message">
+                                  Please enter a name of school
+                                </div>
+                              <div *ngIf="userForm.controls['secondaryEducation'].controls['sNameOfSchool'].hasError('minlength')" class="error-message">
+                                Please enter aleast 4 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['secondaryEducation'].controls['sNameOfSchool'].hasError('maxlength')" class="error-message">
+                                Name of school must not exceed 50 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['secondaryEducation'].controls['sNameOfSchool'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain required">
+                            <label for="sYearGraduated" class="col-sm-2 col-sm-offset-3">Year Graduated
+                              <span class="required-indicator">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                              <input class="form-control" required="" name="sYearGraduated" id="sYearGraduated" [(ngModel)]="applicant.sYearGraduated" formControlName="sYearGraduated" type="text" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['secondaryEducation'].controls['sYearGraduated'].hasError('required')" class="error-message">
+                                Please enter a year graduated
+                              </div>
+                              <div *ngIf="userForm.controls['secondaryEducation'].controls['sYearGraduated'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain">
+                            <label for="sHonor" class="col-sm-2 col-sm-offset-3"> Honor</label>
+                            <div class="col-sm-4">
+                              <input class="form-control" name="sHonor" id="sHonor" [(ngModel)]="applicant.sHonor" formControlName="sHonor" type="text" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['secondaryEducation'].controls['sHonor'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                       </div>
+                      </div>
+                      <div formGroupName="collegeEducation">
+                        <div class="row">
+                          <div class="fieldcontain">
+                            <label for="eNameOfSchool" class="col-sm-1 col-sm-offset-3"> 
+                              <h4> College </h4>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain required">
+                            <label for="cNameOfSchool" class="col-sm-2 col-sm-offset-3"> Name Of School
+                              <span class="required-indicator">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                              <input class="form-control" required="" name="cNameOfSchool" id="cNameOfSchool" [(ngModel)]="applicant.cNameOfSchool" formControlName="cNameOfSchool" type="text" maxlength="50" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['collegeEducation'].controls['cNameOfSchool'].hasError('required')" class="error-message">
+                                  Please enter a name of school
+                                </div>
+                              <div *ngIf="userForm.controls['collegeEducation'].controls['cNameOfSchool'].hasError('minlength')" class="error-message">
+                                Please enter aleast 4 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['collegeEducation'].controls['cNameOfSchool'].hasError('maxlength')" class="error-message">
+                                Name of school must not exceed 50 characters.
+                              </div>
+                              <div *ngIf="userForm.controls['collegeEducation'].controls['cNameOfSchool'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain required">
+                            <label for="cYearGraduated" class="col-sm-2 col-sm-offset-3"> Year Graduated
+                              <span class="required-indicator">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                              <input class="form-control" required="" name="cYearGraduated" id="cYearGraduated" [(ngModel)]="applicant.cYearGraduated" formControlName="cYearGraduated" type="text" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['collegeEducation'].controls['cYearGraduated'].hasError('required')" class="error-message">
+                                Please enter a year graduated
+                              </div>
+                              <div *ngIf="userForm.controls['collegeEducation'].controls['cYearGraduated'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="fieldcontain">
+                            <label for="cHonor" class="col-sm-2 col-sm-offset-3"> Honor</label>
+                            <div class="col-sm-4">
+                              <input class="form-control" name="cHonor" id="cHonor" [(ngModel)]="applicant.cHonor" formControlName="cHonor" type="text" />
+                            </div>
+                            <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['collegeEducation'].controls['cHonor'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <h3> III. Others </h3>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="fieldcontain">
+                          <label for="hobbies" class="col-sm-2 col-sm-offset-3">Hobbies</label>
+                          <div class="col-sm-4">
+                            <input class="form-control" name="hobbies" id="hobbies" [(ngModel)]="applicant.hobbies" formControlName="hobbies" type="text" />
+                          </div>
+                           <div class="col-sm-3">
+                              <div *ngIf="userForm.controls['hobbies'].hasError('pattern')" class="error-message">
+                                Invalid format.
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </fieldset>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-2 col-sm-offset-5">
+                      <fieldset class="buttons">
+                          <input type="submit" [disabled]="!userForm.valid" class="btn btn-primary save" [value]="create ? 'Save' : 'Update'" />
+                          <input [routerLink]="['/applicant','list']" type="button" class="btn btn-default" value="Cancel"/>
+                      </fieldset>
+                    </div>
+                  </div>
+            </form>
+        </div>
+         
+       </div>
+      </div>
+      <!-- END CALENDAR PORTLET-->
+    </div>
   </div>
-  <div class="fieldcontain required">
-    <label for="nameExtension">Name Extension
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="nameExtension" id="nameExtension" [(ngModel)]="applicant.nameExtension" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="lastName">Last Name
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="lastName" id="lastName" [(ngModel)]="applicant.lastName" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="email">Email
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="email" id="email" [(ngModel)]="applicant.email" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="cellphone">Cellphone
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="cellphone" id="cellphone" [(ngModel)]="applicant.cellphone" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="firstName">First Name
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="firstName" id="firstName" [(ngModel)]="applicant.firstName" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="permanentAddress">Permanent Address
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="permanentAddress" id="permanentAddress" [(ngModel)]="applicant.permanentAddress" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="residentialAddress">Residential Address
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="residentialAddress" id="residentialAddress" [(ngModel)]="applicant.residentialAddress" type="text" />
-  </div>
-</fieldset>
-        </fieldset>
-        <fieldset class="buttons">
-            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
-        </fieldset>
-    </form>
 </div>
+
+

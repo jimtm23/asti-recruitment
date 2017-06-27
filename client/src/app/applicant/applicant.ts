@@ -3,14 +3,24 @@
 export class Applicant {
   id: number;
 
+  firstName: string;
+  lastName: string;
   middleName: string;
   nameExtension: string;
-  lastName: string;
   email: string;
   cellphone: string;
-  firstName: string;
-  permanentAddress: string;
   residentialAddress: string;
+  permanentAddress: string;
+  eNameOfSchool: string;
+  eYearGraduated: string;
+  eHonor: string;
+  sNameOfSchool: string;
+  sYearGraduated: string;
+  sHonor: string;
+  cNameOfSchool: string;
+  cYearGraduated: string;
+  cHonor: string;
+  hobbies: string;
 
   constructor (object?: any) {
     if (object) {

@@ -1,64 +1,193 @@
-<div class="nav" role="navigation">
-    <ul>
-        <li><a [routerLink]="['/index']" class="home">Home</a></li>
-        <li><a class="list" [routerLink]="['/applicant', 'list']" class="list">Applicant List</a></li>
-        <li><a class="create" [routerLink]="['/applicant', 'create']" class="create">New Applicant</a></li>
+<h3 class="page-title">
+  Applicant <small>Show</small>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a [routerLink]="['/index']" class="home">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+           <a class="list" [routerLink]="['/applicant', 'list']" class="list">Applicant List</a>
+           <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+          <a class="create" [routerLink]="['/applicant', 'create']" class="create">New Applicant</a>
+        </li>
     </ul>
 </div>
-<div id="show-part" class="content scaffold-show" role="main">
-    <h1>Show Applicant</h1>
-    <ol class="property-list applicant">
-  <li class="fieldcontain">
-    <span id="middleName-label" class="property-label">Middle Name</span>
-    <div class="property-value" aria-labelledby="middleName-label">
-      <span>{{applicant.middleName}}</span>
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet box green-meadow calendar">
+      <div class="portlet-title">
+        <div class="caption">
+          Show Applicant
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="row">
+            <div class="col-sm-8">
+              <br>
+              <h3> I-A. Personal Information </h3>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <label for="lastName" class="col-sm-2 col-sm-offset-3"> Last Name: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.lastName}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="firstName" class="col-sm-2 col-sm-offset-3"> First Name: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.firstName}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="middleName" class="col-sm-2 col-sm-offset-3"> Middle Name: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.middleName}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="nameExtension" class="col-sm-2 col-sm-offset-3"> Name Extension: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.nameExtension}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <br>
+            <h3>I-B. Contact Information</h3>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+            <label for="email" class="col-sm-2 col-sm-offset-3"> Email: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.email}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="cellphone" class="col-sm-2 col-sm-offset-3"> Cellphone: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.cellphone}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="residentialAddress" class="col-sm-2 col-sm-offset-3"> Residential Address: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.residentialAddress}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="permanentAddress" class="col-sm-2 col-sm-offset-3"> Permanent Address: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.permanentAddress}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <br>
+            <h3>II. Educational Background</h3>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+            <label class="col-sm-1 col-sm-offset-3"> 
+              <h4> Elementary </h4>
+            </label>
+        </div>
+        <div class="row">
+            <label for="eNameOfSchool" class="col-sm-2 col-sm-offset-3"> Name of School: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.eNameOfSchool}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="eYearGraduated" class="col-sm-2 col-sm-offset-3"> Year Graduated: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.eYearGraduated}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="eHonor" class="col-sm-2 col-sm-offset-3"> Honor: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.eHonor}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-1 col-sm-offset-3"> 
+              <h4> Secondary </h4>
+            </label>
+        </div>
+        <div class="row">
+            <label for="sNameOfSchool" class="col-sm-2 col-sm-offset-3"> Name of School: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.sNameOfSchool}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="sYearGraduated" class="col-sm-2 col-sm-offset-3"> Year Graduated: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.sYearGraduated}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="sHonor" class="col-sm-2 col-sm-offset-3"> Honor: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.sHonor}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-1 col-sm-offset-3"> 
+              <h4> College </h4>
+            </label>
+        </div>
+        <div class="row">
+            <label for="cNameOfSchool" class="col-sm-2 col-sm-offset-3"> Name of School: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.cNameOfSchool}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="cYearGraduated" class="col-sm-2 col-sm-offset-3"> Year Graduated: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.cYearGraduated}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="cHonor" class="col-sm-2 col-sm-offset-3"> Honor: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.cHonor}} </b> </label>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <br>
+            <h3>III. Others</h3>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+            <label for="hobbies" class="col-sm-2 col-sm-offset-3"> Hobbies: </label>
+            <div class="col-sm-4">
+              <label><b> {{applicant.hobbies}} </b> </label>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-5">
+              <fieldset class="buttons">
+                 <button [routerLink]="['/applicant','edit',applicant.id]" class="btn btn-primary">Edit</button>
+                 <button [routerLink]="['/applicant','list']" type="button" class="btn btn-default">Cancel</button>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </li>
-  <li class="fieldcontain">
-    <span id="nameExtension-label" class="property-label">Name Extension</span>
-    <div class="property-value" aria-labelledby="nameExtension-label">
-      <span>{{applicant.nameExtension}}</span>
-    </div>
-  </li>
-  <li class="fieldcontain">
-    <span id="lastName-label" class="property-label">Last Name</span>
-    <div class="property-value" aria-labelledby="lastName-label">
-      <span>{{applicant.lastName}}</span>
-    </div>
-  </li>
-  <li class="fieldcontain">
-    <span id="email-label" class="property-label">Email</span>
-    <div class="property-value" aria-labelledby="email-label">
-      <span>{{applicant.email}}</span>
-    </div>
-  </li>
-  <li class="fieldcontain">
-    <span id="cellphone-label" class="property-label">Cellphone</span>
-    <div class="property-value" aria-labelledby="cellphone-label">
-      <span>{{applicant.cellphone}}</span>
-    </div>
-  </li>
-  <li class="fieldcontain">
-    <span id="firstName-label" class="property-label">First Name</span>
-    <div class="property-value" aria-labelledby="firstName-label">
-      <span>{{applicant.firstName}}</span>
-    </div>
-  </li>
-  <li class="fieldcontain">
-    <span id="permanentAddress-label" class="property-label">Permanent Address</span>
-    <div class="property-value" aria-labelledby="permanentAddress-label">
-      <span>{{applicant.permanentAddress}}</span>
-    </div>
-  </li>
-  <li class="fieldcontain">
-    <span id="residentialAddress-label" class="property-label">Residential Address</span>
-    <div class="property-value" aria-labelledby="residentialAddress-label">
-      <span>{{applicant.residentialAddress}}</span>
-    </div>
-  </li>
-</ol>
-
-    <a class="edit" [routerLink]="['/applicant', 'edit', applicant.id]">Edit</a>
-    <button type="button" (click)="destroy()">Delete</button>
-
-</div>
+  </div>
+  
